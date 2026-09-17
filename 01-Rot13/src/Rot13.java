@@ -1,4 +1,4 @@
-public static class Rot13 {
+public class Rot13 {
     char [] alfab = {
         'a', 'á', 'à', 'b', 'c', 'ç', 'd', 'e', 'é', 'è', 'f', 'g', 'h',
         'i', 'í', 'ì', 'ï', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'ó', 'ò',
