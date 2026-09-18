@@ -16,10 +16,10 @@ public class Rot13 {
         public static void main(String[] args) {
             String resultado = xifraRotX(frase, desplazament);
             System.out.println("Xifrat\n------");
-            System.out.printf("(%d)-%-25s => %s%n%n", desplazament, frase, resultado);
+            System.out.printf("(%d)-%-5s => %s%n%n", desplazament, frase, resultado);
             String resultado2 = desxifraRotX(resultado, desplazament);
             System.out.println("Desxifrat\n------");
-            System.out.printf("(%d)-%-25s => %s%n%n", desplazament, resultado, resultado2);
+            System.out.printf("(%d)-%-5s => %s%n%n", desplazament, resultado, resultado2);
             System.out.printf("Missatge xifrat: %s\n-----------------\n", resultado2);
             forsaBrutaRotX(resultado);
 
