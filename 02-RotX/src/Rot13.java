@@ -70,7 +70,7 @@ public class Rot13 {
 
     public static void forsaBrutaRotX(String cadenaXifrada) {
             
-            for (int i = 0; i < 39; i++) {  
+            for (int i = 0; i < majuscules.length; i++) {  
                 String resultado = desxifraRotX(cadenaXifrada, i);
                 System.out.printf("(%d)->%s%n",i, resultado); 
             } 
