@@ -1,7 +1,7 @@
-import java.util.Scanner;
-
-
 public class Rot13 {
+
+    static String frase = "Hola buenos dias";
+    static int desplazament = 10;
     
     static char [] minuscules = {
        'a', 'á', 'à', 'b', 'c', 'ç', 'd', 'e', 'é', 'è', 'f', 'g', 'h',
@@ -14,23 +14,18 @@ public class Rot13 {
         'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ù', 'Ü', 'V', 'W', 'X', 'Y', 'Z'
     };
         public static void main(String[] args) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Insereix la frase: ");
-            String frase = scanner.nextLine();
-            
-            System.out.print("1 - Xifrar en Rot13\n2 - Desxifrar en Rot13\n");
-            int opcio = scanner.nextInt();
-            if (opcio == 1) {
-                System.out.println("Frase xifrada: " + xifraRot13(frase));
-            } else if (opcio == 2) {
-                System.out.println("Frase desxifrada: " + desxifraRot13(frase));
-            } else {
-                System.out.println("Opció no vàlida.");
-            }
-            scanner.close();
+            String resultado = xifraRotX(frase, desplazament);
+            System.out.println("Xifrat\n------");
+            System.out.printf("(%d)-%-25s => %s%n%n", desplazament, frase, resultado);
+            String resultado2 = desxifraRotX(resultado, desplazament);
+            System.out.println("Desxifrat\n------");
+            System.out.printf("(%d)-%-25s => %s%n%n", desplazament, resultado, resultado2);
+            System.out.printf("Missatge xifrat: %s\n-----------------\n", resultado2);
+            forsaBrutaRotX(resultado);
+
         }
     
-    public static String xifraRotX(String frase) {
+    public static String xifraRotX(String frase, int desplazament) {
         char[] xifrada  = frase.toCharArray();
         for (int i = 0; i < xifrada.length; i++) {
             char c = xifrada[i];
@@ -38,13 +33,13 @@ public class Rot13 {
             if (Character.isLowerCase(c)) {
                 for (int j = 0; j < minuscules.length; j++) {
                     if (minuscules[j] == c) {
-                        xifrada[i] = minuscules[(j + 13) % minuscules.length];
+                        xifrada[i] = minuscules[(j + desplazament) % minuscules.length];
                     }
                 }
             }else if (Character.isUpperCase(c)) {
                 for (int j = 0; j < majuscules.length; j++) {
                     if (majuscules[j] == c) {
-                        xifrada[i] = majuscules[(j + 13) % majuscules.length];
+                        xifrada[i] = majuscules[(j + desplazament) % majuscules.length];
                     }
                 }
             }
@@ -52,20 +47,20 @@ public class Rot13 {
         return new String(xifrada);
     
     }
-    public static String desxifraRotX(String frase) {
+    public static String desxifraRotX(String frase, int desplazament) {
         char[] desxifrada = frase.toCharArray();
         for (int i = 0; i < desxifrada.length; i++) {
             char c = desxifrada[i];
             if (Character.isLowerCase(c)) {
                 for (int j = 0; j < minuscules.length; j++) {
                     if (minuscules[j] == c) {
-                        desxifrada[i] = minuscules[(j - 13 + minuscules.length) % minuscules.length];
+                        desxifrada[i] = minuscules[(j - desplazament + minuscules.length) % minuscules.length];
                     }
                 }
             }else if (Character.isUpperCase(c)) {
                 for (int j = 0; j < majuscules.length; j++) {
                     if (majuscules[j] == c) {
-                        desxifrada[i] = majuscules[(j - 13 + majuscules.length) % majuscules.length];
+                        desxifrada[i] = majuscules[(j - desplazament + majuscules.length) % majuscules.length];
                     }
                 }
             }
@@ -73,7 +68,14 @@ public class Rot13 {
         return new String(desxifrada);
     }
 
-    public static String xifraRotX(String cadenaXifrada) {
+    public static void forsaBrutaRotX(String cadenaXifrada) {
+            
+            for (int i = 0; i < 39; i++) {  
+                String resultado = desxifraRotX(cadenaXifrada, i);
+                System.out.printf("(%d)->%s%n",i, resultado); 
+            } 
+      
+    }
 }   
 
 
