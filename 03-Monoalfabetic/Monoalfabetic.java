@@ -6,13 +6,14 @@ import java.util.List;
 public class Monoalfabetic {
 
     private static final String frase = "Hola buenos dias";
-    private static final int desplazament = 10;
     
     private static final String majuscules = ("AÁÀBCÇDEÉÈFGHIÍÌÏJKLMNÑOÓÒPQRSTUÚÙÜVWXYZ");
     private static final char[] alfabet = majuscules.toCharArray();
-     
+    private static final char[] clave = permutaAlfabet(alfabet);
         public static void main(String[] args) {
-            permutaAlfabet(alfabet);
+            System.out.println(alfabet);
+            System.out.println(clave);
+            
 
         }
     public static char[] permutaAlfabet(char[] alfabet) {
@@ -27,48 +28,38 @@ public class Monoalfabetic {
         return alfabet;
     }
 
-    public static String xifraMonoAlfa(String frase) {
-       
+    public static char xifraCaracter(char c) {
+        c = Character.toUpperCase(c);
         for (int i = 0; i < alfabet.length; i++) {
-            char c = alfabet[i];
-
-            if (Character.isLowerCase(c)) {
-                for (int j = 0; j < alfabet.length; j++) {
-                    if (Character.toLowerCase(alfabet[j]) == c) {
-                        alfabet[i] = Character.toLowerCase(alfabet[(j + desplazament) % alfabet.length]);
-                    }
-                }
-            }else if (Character.isUpperCase(c)) {
-                for (int j = 0; j < alfabet.length; j++) {
-                    if (alfabet[j] == c) {
-                        alfabet[i] = alfabet[(j + desplazament) % alfabet.length];
-                    }
-                }
+            if (alfabet[i] == c) {
+                return clave[i];
             }
         }
-        return new String(alfabet);
+        return clave[0];  //por si no encuentra ninguna
+    }
+        public static char desxifraCaracter(char c) {
+        c = Character.toUpperCase(c);
+        for (int i = 0; i < clave.length; i++) {
+            if (clave[i] == c) {
+                return alfabet[i];
+            }
+        }
+        return clave[0];  //por si no encuentra ninguna
+    }
+    
+    public static String xifraMonoAlfa(String frase) {
+       char[] arrayFrase = frase.toCharArray();
+       for (int i = 0; i < arrayFrase.length; i++) {
+           arrayFrase[i] = xifraCaracter(arrayFrase[i]);
+       }
+       return new String(arrayFrase);
     }
 
     public static String desxifraMonoAlfa(String frase) {
-        for (int i = 0; i < alfabet.length; i++) {
-            char c = alfabet[i];
-
-            if (Character.isLowerCase(c)) {
-                for (int j = 0; j < alfabet.length; j++) {
-                    if (Character.toLowerCase(alfabet[j]) == c) {
-                        alfabet[i] = Character.toLowerCase(alfabet[(j - desplazament) % alfabet.length]);
-                    }
-                }
-            }else if (Character.isUpperCase(c)) {
-                for (int j = 0; j < alfabet.length; j++) {
-                    if (alfabet[j] == c) {
-                        alfabet[i] = alfabet[(j - desplazament) % alfabet.length];
-                    }
-                }
-            }
+        char[] arrayFrase = frase.toCharArray();
+        for (int i = 0; i < arrayFrase.length; i++) {
+            arrayFrase[i] = desxifraCaracter(arrayFrase[i]);
         }
-        return new String(alfabet);
+        return new String(arrayFrase);
     }
-
 }
-
