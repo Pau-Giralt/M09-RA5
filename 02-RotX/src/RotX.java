@@ -2,9 +2,6 @@
 
 public class RotX {
 
-    static String frase = "Hola buenos dias";
-    static int desplazament = 10;
-    
     static char [] minuscules = {
        'a', 'á', 'à', 'b', 'c', 'ç', 'd', 'e', 'é', 'è', 'f', 'g', 'h',
        'i', 'í', 'ì', 'ï', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'ó', 'ò',
@@ -15,18 +12,34 @@ public class RotX {
         'I', 'Í', 'Ì', 'Ï', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'Ó', 'Ò',
         'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ù', 'Ü', 'V', 'W', 'X', 'Y', 'Z'
     };
-        public static void main(String[] args) {
-            String resultado = xifraRotX(frase, desplazament);
-            System.out.println("Xifrat\n------");
-            System.out.printf("(%d)-%-5s => %s%n%n", desplazament, frase, resultado);
-            String resultado2 = desxifraRotX(resultado, desplazament);
-            System.out.println("Desxifrat\n------");
-            System.out.printf("(%d)-%-5s => %s%n%n", desplazament, resultado, resultado2);
-            System.out.printf("Missatge xifrat: %s\n-----------------\n", resultado2);
-            forsaBrutaRotX(resultado);
+    public static void main(String[] args) {
+        String[] proves = {"ABC", "XYZ", "Hola, Mr. calçot", "Perdó, per tu què és?"};
+        int[] desplacaments = {0, 2, 4, 6};
+        String[] xifrades = new String[proves.length];
 
+        System.out.println("Xifrat");
+        System.out.println("------");
+        for (int i = 0; i < proves.length; i++) {
+            xifrades[i] = xifraRotX(proves[i], desplacaments[i]);
+            System.out.printf("(%d)-%-25s => %s%n", desplacaments[i], proves[i], xifrades[i]);
         }
-    
+
+        System.out.println();
+        System.out.println("Desxifrat");
+        System.out.println("---------");
+        for (int i = 0; i < xifrades.length; i++) {
+            System.out.printf("(%d)-%-25s => %s%n", desplacaments[i], xifrades[i],
+                    desxifraRotX(xifrades[i], desplacaments[i]));
+        }
+
+        // Força bruta sobre l'últim missatge XIFRAT
+        String missatgeXifrat = xifrades[xifrades.length - 1];
+        System.out.println();
+        System.out.printf("Missatge xifrat: %s%n", missatgeXifrat);
+        System.out.println("----------------");
+        forcaBrutaRotX(missatgeXifrat);
+    }
+
     public static String xifraRotX(String frase, int desplazament) {
         char[] xifrada  = frase.toCharArray();
         for (int i = 0; i < xifrada.length; i++) {
@@ -70,7 +83,7 @@ public class RotX {
         return new String(desxifrada);
     }
 
-    public static void forsaBrutaRotX(String cadenaXifrada) {
+    public static void forcaBrutaRotX(String cadenaXifrada) {
             
             for (int i = 0; i < majuscules.length; i++) {  
                 String resultado = desxifraRotX(cadenaXifrada, i);

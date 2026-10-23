@@ -1,8 +1,5 @@
 //definitiu
 
-import java.util.Scanner;
-
-
 public class Rot13 {
     
     static char [] minuscules = {
@@ -15,23 +12,25 @@ public class Rot13 {
         'I', 'Í', 'Ì', 'Ï', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'Ó', 'Ò',
         'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ù', 'Ü', 'V', 'W', 'X', 'Y', 'Z'
     };
-        public static void main(String[] args) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Insereix la frase: ");
-            String frase = scanner.nextLine();
-            
-            System.out.print("1 - Xifrar en Rot13\n2 - Desxifrar en Rot13\n");
-            int opcio = scanner.nextInt();
-            if (opcio == 1) {
-                System.out.println("Frase xifrada: " + xifraRot13(frase));
-            } else if (opcio == 2) {
-                System.out.println("Frase desxifrada: " + desxifraRot13(frase));
-            } else {
-                System.out.println("Opció no vàlida.");
-            }
-            scanner.close();
+    public static void main(String[] args) {
+        String[] proves = {"ABC", "XYZ", "Hola, Mr. calçot", "Perdó, per tu què és?"};
+        String[] xifrades = new String[proves.length];
+
+        System.out.println("Xifrat");
+        System.out.println("------");
+        for (int i = 0; i < proves.length; i++) {
+            xifrades[i] = xifraRot13(proves[i]);
+            System.out.printf("%-25s => %s%n", proves[i], xifrades[i]);
         }
-    
+
+        System.out.println();
+        System.out.println("Desxifrat");
+        System.out.println("---------");
+        for (int i = 0; i < xifrades.length; i++) {
+            System.out.printf("%-25s => %s%n", xifrades[i], desxifraRot13(xifrades[i]));
+        }
+    }
+
     public static String xifraRot13(String frase) {
         char[] xifrada  = frase.toCharArray();
         for (int i = 0; i < xifrada.length; i++) {
